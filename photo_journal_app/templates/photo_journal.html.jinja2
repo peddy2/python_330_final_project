@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Journal</title>
+  <link href="{{ url_for('static', path='/css/styles.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', path='/css/fallback-styles.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', path='/src/htmx.min.js') }}"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+  <nav class="nav-bar">
+    <div class="flex w-full flex-wrap items-center justify-between px-3">
+      <div class="ms-2">
+        <a class="nav-title" href="#">📸 Photo Journal</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="grid grid-cols-12 gap-6 mt-6">
+    <!-- Add Photo Form Column -->
+    <div class="col-span-12 md:col-span-4 mx-4">
+      <div class="form-container">
+        <h1 class="form-title">
+          <span class="mr-2">✨</span>Add new photo
+        </h1>
+        <form hx-post="/post-photo"
+              hx-target="#photos"
+              hx-swap="innerHTML"
+              hx-on::after-request="this.reset()"
+              enctype="multipart/form-data"
+              class="space-y-4">
+          <div>
+            <label for="photo_upload" class="block my-2 text-sm font-semibold text-purple-700">Photo</label>
+            <input type="file"
+                   id="photo_upload"
+                   name="photo_upload"
+                   class="form-input"
+                   required/>
+          </div>
+          <div>
+            <label for="entry" class="block my-2 text-sm font-semibold text-purple-700">Entry</label>
+            <textarea id="entry"
+                      name="entry"
+                      rows="4"
+                      class="form-textarea"
+                      placeholder="Share your thoughts about this photo..."
+                      required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="mr-2">💫</span>Save entry
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Photo Display Column -->
+    <div class="col-span-12 md:col-span-8 mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="section-title">
+          <span class="mr-2">📷</span>My photos
+        </h1>
+      </div>
+
+      <div id="photos">
+        {% block photos %}
+        {% if invalid_image_file %}
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200" role="alert">
+          <span class="font-medium">Invalid image file!</span> Upload a valid image file (PNG, JPG, GIF).
+        </div>
+        {% endif %}
+
+        {% if photos %}
+          {% block photo_list %}
+          {% for photo in photos %}
+          <div id="photo-{{ photo.doc_id }}" class="photo-card">
+            <div class="photo-container">
+              <img class="photo-img"
+                   src="{{ url_for('static', path=photo.file_path) }}"
+                   alt="User photo" />
+            </div>
+            <div style="padding: 1.5rem;">
+              <p style="color: #7c3aed; background: #faf5ff; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; display: inline-block; margin-bottom: 0.75rem;">
+                📅 Uploaded {{ photo.uploaded_at }}
+              </p>
+              <div id="photo-edit-fields-{{ photo.doc_id }}">
+                {% block click_to_edit_entry scoped %}
+                <p style="color: #374151; cursor: pointer; padding: 0.75rem; border-radius: 0.5rem; border: 2px solid transparent; transition: all 0.2s; margin-bottom: 0.75rem;"
+                   hx-get="/edit-photo"
+                   hx-target="#photo-edit-fields-{{ photo.doc_id }}"
+                   hx-swap="innerHTML"
+                   hx-vals='{"photo_id": {{ photo.doc_id }}}'>
+                  {{ photo.entry }}
+                </p>
+                {% endblock %}
+              </div>
+              <button style="background: #ef4444; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; font-weight: bold; font-size: 1rem;"
+                      hx-delete="/delete-photo"
+                      hx-target="#photo-{{ photo.doc_id }}"
+                      hx-swap="outerHTML"
+                      hx-vals='{"photo_id": {{ photo.doc_id }}}'
+                      hx-confirm="Are you sure you want to delete this photo?">
+                🗑️ DELETE THIS PHOTO
+              </button>
+            </div>
+          </div>
+          {% if loop.last %}
+          <div hx-get="/load-photos"
+               hx-trigger="revealed"
+               hx-target="this"
+               hx-swap="afterend"
+               hx-vals='{"photo_count": {{ photo_count }}}'>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endblock %}
+        {% else %}
+          <div class="no-photos">
+            <div class="no-photos-icon">📸</div>
+            <h3 class="no-photos-title">No photos yet!</h3>
+            <p class="no-photos-text">Upload your first photo to get started.</p>
+          </div>
+        {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

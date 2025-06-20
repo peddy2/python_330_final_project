@@ -1,0 +1,258 @@
+/* Fallback styles if TailwindCSS isn't working */
+@import url('https://cdn.tailwindcss.com');
+
+body {
+    background: linear-gradient(135deg, #fdf4ff, #dbeafe);
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.nav-bar {
+    background: linear-gradient(90deg, #9333ea, #2563eb);
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.form-container {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+}
+
+.form-title {
+    color: #7c3aed;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.form-input, .form-textarea {
+    background: #faf5ff;
+    border: 2px solid #d8b4fe;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.submit-btn {
+    background: linear-gradient(90deg, #9333ea, #2563eb);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.photo-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.photo-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.photo-container {
+    background: linear-gradient(135deg, #fdf4ff, #dbeafe);
+    display: flex;
+    justify-content: center;
+}
+
+.photo-img {
+    border-radius: 0.75rem 0.75rem 0 0;
+    transition: transform 0.3s;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.photo-img:hover {
+    transform: scale(1.05);
+}
+
+.photo-content {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.photo-text {
+    flex-grow: 1;
+    margin-right: 1rem;
+}
+
+.upload-date {
+    color: #7c3aed;
+    background: #faf5ff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.journal-entry {
+    color: #374151;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    margin-bottom: 0.75rem;
+}
+
+.journal-entry:hover {
+    background: linear-gradient(90deg, #fdf4ff, #dbeafe);
+    border-color: #d8b4fe;
+}
+
+.delete-btn-text {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+}
+
+.delete-btn-text:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.edit-textarea {
+    background: #faf5ff;
+    border: 2px solid #d8b4fe;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    resize: none;
+    font-size: 0.875rem;
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.save-btn {
+    background: linear-gradient(90deg, #10b981, #059669);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-btn {
+    background: linear-gradient(90deg, #9ca3af, #6b7280);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-btn:hover, .cancel-btn:hover {
+    transform: scale(1.05);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.col-span-4 {
+    grid-column: span 4;
+}
+
+.col-span-8 {
+    grid-column: span 8;
+}
+
+@media (max-width: 768px) {
+    .col-span-4, .col-span-8 {
+        grid-column: span 12;
+    }
+}
+
+.mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.section-title {
+    color: #7c3aed;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.no-photos {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.no-photos-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.no-photos-title {
+    color: #7c3aed;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.no-photos-text {
+    color: #7c3aed;
+}
