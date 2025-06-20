@@ -1,0 +1,9 @@
+aiofiles
+fastapi[standard]
+httpx
+Jinja2
+jinja2_fragments
+pillow
+pytailwindcss
+pytest
+tinydb
