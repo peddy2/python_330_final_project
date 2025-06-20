@@ -12,6 +12,8 @@ from jinja2_fragments.fastapi import Jinja2Blocks
 from PIL import Image
 from tinydb import TinyDB, Query
 
+os.makedirs("static/images", exist_ok=True)
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Blocks(directory="templates")
